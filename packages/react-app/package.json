@@ -46,6 +46,7 @@
         "node-mocks-http": "^1.15.0",
         "prettier": "^3.3.2",
         "react": "18.2.0",
+        "react-bootstrap": "^2.10.5",
         "react-dom": "18.2.0",
         "react-hot-toast": "^2.2.0",
         "react-modal": "^3.16.1",

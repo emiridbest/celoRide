@@ -3,7 +3,7 @@ import TransactionList from '../components/TransactionList';
 import Showcase from '@/components/Showcase';
 import Hero from '@/components/Hero';
 import Links from '@/components/Links';
-
+import Map from '@/components/Map';
 
 const CeloRide: React.FC = () => {
 
