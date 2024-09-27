@@ -3,12 +3,13 @@ import TransactionList from '../components/TransactionList';
 import Showcase from '@/components/Showcase';
 import Hero from '@/components/Hero';
 import Links from '@/components/Links';
-import Map from '@/components/Map';
+import Balance from '@/components/Balance';
 
 const CeloRide: React.FC = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 md:px-8 ">
+      <Balance />
       <Hero />
       <Showcase />
       <Links />

@@ -107,7 +107,7 @@ const Hero: React.FC = () => {
                         </div>
                         <div className="lg:w-1/2 p-4 flex justify-center lg:justify-end">
                             <Image
-                                src="/thrift.png"
+                                src="/ui.png"
                                 width="360"
                                 height="360"
                                 alt="Mobile optimized. Built for you."
@@ -143,7 +143,7 @@ const Hero: React.FC = () => {
                     <div className="flex flex-col lg:flex-row justify-between -y items-center">
                         <div className="lg:w-1/2 p-4">
                             <header>
-                                <h3 className="text-5xl font-bold">Automate your savinds</h3>
+                                <h3 className="text-5xl font-bold">Ride share at its best</h3>
                             </header>
                             <p className="mt-4 text-base">CeloRide brings prosperity to all, enriching lives.</p>
                         </div>

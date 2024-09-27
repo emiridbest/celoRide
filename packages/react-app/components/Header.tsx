@@ -91,23 +91,14 @@ export default function Header() {
                             </div>
                             <div className="hidden sm:ml-6 sm:flex sm:space-x-2 px-3 py-2 rounded-md">
                                 <Link
-                                    onClick={() => router.push('/exchange')}
+                                    onClick={() => router.push('/map')}
                                     className="inline-flex items-center border-b-1 border-black  px-1 pt-1 text-sm font-small text-gray-900"
                                     href={""}
                                 >
-                                    Exchange
+                                    Order Ride
                                 </Link>
                             </div>
-                            <div className="hidden sm:ml-6 sm:flex sm:space-x-2 px-3 py-2 rounded-md">
-                                <Link
-                                    onClick={() => router.push('/miniSafe')}
-                                    className="inline-flex items-center border-b-1 border-black px-1 pt-1 text-sm font-small text-gray-900"
-                                    href={""}
-                                >
-                                    Simple Saver
-                                </Link>
-                            </div>
-
+  
                             <div className="hidden sm:ml-6 sm:flex sm:space-x-2 hover:text-white hover:bg-black px-3 py-2 rounded-md">
                                 <div>
                                     <button

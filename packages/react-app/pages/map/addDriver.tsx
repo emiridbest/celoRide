@@ -42,7 +42,32 @@ const AddDriver: React.FC = () => {
                 const contract = new Contract(contractAddress, abi, signer);
 
                 const gasLimit = parseInt("600000");
-                const tx = await contract.registerDriver(name, lat, lng, { gasLimit });
+                const tx = await contract.registerDriver(name, Math.floor(lat), Math.floor(lng), { gasLimit });
+                await tx.wait();
+                toast.success('Driver registered successfully!');
+                router.push('/drivers');
+            } catch (error) {
+                console.error("Error registering driver:", error);
+                toast.error('Failed to register driver.');
+            }
+        } else {
+            toast.error('Ethereum object not found');
+        }
+    };
+    const handleUpdateLocation = async () => {
+        if (!name || lat === null || lng === null) {
+            toast.error('Please provide your name and allow location access.');
+            return;
+        }
+
+        if (window.ethereum) {
+            try {
+                const provider = new BrowserProvider(window.ethereum);
+                const signer = await provider.getSigner();
+                const contract = new Contract(contractAddress, abi, signer);
+
+                const gasLimit = parseInt("600000");
+                const tx = await contract.updateDriverLocation(Math.floor(lat), Math.floor(lng), { gasLimit });
                 await tx.wait();
                 toast.success('Driver registered successfully!');
                 router.push('/drivers');
@@ -56,7 +81,7 @@ const AddDriver: React.FC = () => {
     };
 
     const handleReturnHome = () => {
-        router.push('/');
+        router.push('/map');
     };
 
     return (
@@ -74,7 +99,7 @@ const AddDriver: React.FC = () => {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="border border-prosperity bg-black text-prosperity rounded-lg p-2 w-full"
+                    className="border border-black bg-gray-150 text-black rounded-lg p-2 w-full"
                 />
             </div>
             <div className="mt-2">
@@ -83,7 +108,7 @@ const AddDriver: React.FC = () => {
                     type="number"
                     value={lat || ''}
                     disabled
-                    className="border border-prosperity bg-black text-prosperity rounded-lg p-2 w-full"
+                    className="border border-black bg-gray-150 text-black rounded-lg p-2 w-full"
                 />
             </div>
             <div className="mt-2">
@@ -92,15 +117,23 @@ const AddDriver: React.FC = () => {
                     type="number"
                     value={lng || ''}
                     disabled
-                    className="border border-prosperity bg-black text-prosperity rounded-lg p-2 w-full"
+                    className="border border-black bg-gray-150 text-black rounded-lg p-2 w-full"
                 />
             </div>
             <div className="mt-4 flex justify-center">
                 <button
                     onClick={handleRegisterDriver}
-                    className="py-2 px-3 bg-black text-prosperity rounded-lg"
+                    className="py-2 px-3 bg-gray-150 text-prosperity bg-black rounded-lg"
                 >
                     Register Driver
+                </button>
+            </div>
+            <div className="mt-4 flex justify-center">
+                <button
+                    onClick={handleUpdateLocation}
+                    className="py-2 px-3 bg-gray-150 text-prosperity bg-black rounded-lg"
+                >
+                    Update Location
                 </button>
             </div>
         </div>
