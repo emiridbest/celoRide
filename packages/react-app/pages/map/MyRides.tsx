@@ -85,7 +85,7 @@ const MyRides: React.FC<MyRidesProps> = ({ ride }) => {
         const provider = new BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
 
-        const chainId = celoAlfajores.id;
+        const chainId = celo.id;
         const sf = await Framework.create({
             chainId,
             provider,
