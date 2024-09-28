@@ -109,6 +109,4 @@ Contributions
 
 Contributions are welcome! Please feel free to open an issue or submit a pull request for bug fixes, feature enhancements, or general improvements.
 
-This updated README includes instructions for using Foundry as the development framework for smart contracts, making it easy to test, compile, and deploy smart contracts on Ce
-
 
