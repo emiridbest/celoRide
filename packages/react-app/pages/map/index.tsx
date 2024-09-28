@@ -4,6 +4,7 @@ import { BrowserProvider, Contract } from 'ethers';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { useRouter } from 'next/router';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import MyRides from './MyRides';
 
 
 const STABLE_TOKEN_ADDRESS = '0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1'; // cUSD address on Celo mainnet
@@ -150,6 +151,7 @@ const CeloRide: React.FC = () => {
 
             <div className="my-8">
                 <h2 className="text-lg font-bold">My Rides</h2>
+                <MyRides ride={rides?.[0]} />
                 {rides.map((ride) => (
                     <div key={ride.id} className="flex justify-between items-center gap-2 py-4 px-6 rounded-lg shadow-md m-2 bg-black text-white">
                         <div className="flex flex-col items-start">

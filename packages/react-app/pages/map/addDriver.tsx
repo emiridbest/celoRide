@@ -70,7 +70,7 @@ const AddDriver: React.FC = () => {
                 const tx = await contract.updateDriverLocation(Math.floor(lat), Math.floor(lng), { gasLimit });
                 await tx.wait();
                 toast.success('Driver registered successfully!');
-                router.push('/drivers');
+                router.push('/map');
             } catch (error) {
                 console.error("Error registering driver:", error);
                 toast.error('Failed to register driver.');
