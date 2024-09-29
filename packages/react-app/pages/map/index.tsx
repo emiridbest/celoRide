@@ -4,7 +4,7 @@ import { BrowserProvider, Contract } from 'ethers';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { useRouter } from 'next/router';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import MyRides from './MyRides';
+import MyRides from './myRides';
 
 
 const STABLE_TOKEN_ADDRESS = '0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1'; // cUSD address on Celo mainnet
@@ -60,12 +60,13 @@ const CeloRide: React.FC = () => {
 
     // Fetch available drivers from the smart contract
     const loadDrivers = useCallback(async () => {
-        if (typeof window !== 'undefined' && window.ethereum) {
+        if (window.ethereum) {
             try {
                 const provider = new BrowserProvider(window.ethereum);
                 const signer = await provider.getSigner();
                 const contract = new Contract(contractAddress, abi, signer);
                 const driverAddresses = await contract.getAvailableDrivers();
+                console.log(driverAddresses);
 
                 const driverPromises = driverAddresses.map(async (address: string) => {
                     const driver = await contract.drivers(address);
@@ -76,8 +77,10 @@ const CeloRide: React.FC = () => {
                         name: driver.name,
                     };
                 });
+                console.log(driverPromises);
 
                 const driverList = await Promise.all(driverPromises);
+                console.log(driverList);
                 setDrivers(driverList);
             } catch (error) {
                 console.error('Error loading drivers:', error);
@@ -87,7 +90,7 @@ const CeloRide: React.FC = () => {
 
     // Fetch rides from the smart contract
     const loadRides = useCallback(async () => {
-        if (typeof window !== 'undefined' && window.ethereum) {
+        if (window.ethereum) {
             try {
                 const provider = new BrowserProvider(window.ethereum);
                 const signer = await provider.getSigner();
@@ -152,7 +155,7 @@ const CeloRide: React.FC = () => {
             <div className="my-8">
                 <h2 className="text-lg font-bold">My Rides</h2>
                 <MyRides ride={rides?.[0]} />
-                {rides.map((ride) => (
+      { /**       {rides.map((ride) => (
                     <div key={ride.id} className="flex justify-between items-center gap-2 py-4 px-6 rounded-lg shadow-md m-2 bg-black text-white">
                         <div className="flex flex-col items-start">
                             <div className="font-bold">Ride #{ride?.[0]}</div>
@@ -167,7 +170,7 @@ const CeloRide: React.FC = () => {
                         <div className="flex flex-col items-start">
                         </div>
                     </div>
-                ))}
+      ))} */}
             </div>
         </div>
     );
