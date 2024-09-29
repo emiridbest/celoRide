@@ -45,8 +45,8 @@ Getting Started
 Prerequisites
 
     Node.js and npm installed on your system.
-    A Celo wallet such as Valora or MetaMask (configured for Celo network).
-    CELO tokens for gas fees.
+    Minipay: Minipay integration mandated to use of a mobile first design approach.
+    cUSD tokens for gas fees.
     Foundry installed for smart contract development.
 
 Installation
