@@ -1,55 +1,43 @@
-import {
-  RainbowKitProvider,
-  connectorsForWallets,
-} from "@rainbow-me/rainbowkit";
-import "@rainbow-me/rainbowkit/styles.css";
-import { injectedWallet } from "@rainbow-me/rainbowkit/wallets";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SessionProvider } from "next-auth/react";
-import type { AppProps } from "next/app";
-import { celo, celoAlfajores } from "viem/chains";
-import { WagmiProvider, createConfig, http } from "wagmi";
-import Layout from "../components/Layout";
-import "../styles/globals.css";
+import Layout from "@/components/Layout";
+import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
+import { AppProps } from "next/app";
+import { celo } from "viem/chains";
+import { WagmiConfig, configureChains, createConfig } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import { publicProvider } from "wagmi/providers/public";
+import { supportedNetworks } from "@superfluid-finance/widget";
+export const { chains, publicClient, webSocketPublicClient } = configureChains(
+  supportedNetworks,
+  [publicProvider()]
+);
 
-const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string; // get one at https://cloud.walletconnect.com/app
 
-const connectors = connectorsForWallets(
-  [
-    {
-      groupName: "Recommended",
-      wallets: [injectedWallet],
-    },
-  ],
-   {
-      appName: "Celo Composer",
-      projectId,
-   }
-  );
+const connectors = [
+  new InjectedConnector({
+    chains,
+  })
+];
 
-const config = createConfig({
+
+export const wagmiConfig = createConfig({
+  autoConnect: true,
   connectors,
-  chains: [celoAlfajores],
-  transports: {
-    [celoAlfajores.id]: http(),
-  },
+  publicClient,
+  webSocketPublicClient,
 });
 
-const queryClient = new QueryClient();
-
+const appInfo = {
+  appName: "CeloRide",
+};
 function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider showRecentTransactions={true}>
-          <SessionProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </SessionProvider>
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <WagmiConfig config={wagmiConfig}>
+      <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </RainbowKitProvider>
+    </WagmiConfig>
   );
 }
 

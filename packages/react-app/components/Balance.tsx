@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { EyeIcon, LockClosedIcon } from '@heroicons/react/24/outline';
 import { getContract, formatEther, createPublicClient, http } from "viem";
-import { celo, celoAlfajores } from "viem/chains";
+import { celo } from "viem/chains";
 import { BrowserProvider} from 'ethers';
 import { stableTokenABI } from "@celo/abis";
-const STABLE_TOKEN_ADDRESS = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
+const STABLE_TOKEN_ADDRESS = "0x765DE816845861e75A25fCA122bb6898B8B1282a";
 
 const Balance: React.FC = () => {
     const [cUSDBalance, setCUSDBalance] = useState<string>('0');
@@ -18,7 +18,7 @@ const Balance: React.FC = () => {
                 const signer = await provider.getSigner();
 
                 const client = createPublicClient({
-                    chain: celoAlfajores,
+                    chain: celo,
                     transport: http(),
                 });
 

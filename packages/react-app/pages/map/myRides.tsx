@@ -3,19 +3,18 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Contract, BrowserProvider, ethers } from 'ethers';
-import { BigNumber } from 'alchemy-sdk';
 import { contractAddress, abi } from '@/utils/abi';
+import { WagmiConfig, configureChains } from "wagmi";
 import { toast } from 'react-toastify';
 import { Ride } from "./index";
 import productDetails from "./superfluid/productDetails";
 import paymentDetails from "./superfluid/paymentDetails";
 import SuperfluidWidget from "@superfluid-finance/widget";
 import superTokenList from "@superfluid-finance/tokenlist";
-import { WagmiConfig, WagmiProvider, createConfig, http } from "wagmi";
-import { ConnectButton, RainbowKitProvider, connectorsForWallets } from "@rainbow-me/rainbowkit";
+import { ConnectButton, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { celo } from 'viem/chains';
-import { injectedWallet } from "@rainbow-me/rainbowkit/wallets";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { wagmiConfig } from '../_app';
+import { publicProvider } from "wagmi/providers/public";
 interface MyRidesProps {
   ride: Ride;
 }
@@ -87,29 +86,13 @@ const MyRides: React.FC<MyRidesProps> = ({ ride }) => {
     }
   };
 
-  const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string;
-
-  const connectors = connectorsForWallets(
-    [
-      {
-        groupName: "Recommended",
-        wallets: [injectedWallet],
-      },
-    ],
-    {
-      appName: "Celo Composer",
-      projectId
-    }
+  const appInfo = {
+    appName: "CeloRide",
+  };
+  const { chains, publicClient } = configureChains(
+    [celo],
+    [publicProvider()]
   );
-
-  const config = createConfig({
-    connectors,
-    chains: [celo],
-    transports: {
-      [celo.id]: http(),
-    },
-  });
-  const queryClient = new QueryClient();
 
   return (
     <div className="flex justify-between items-center gap-2 py-4 px-6 rounded-lg shadow-md m-2 bg-black text-white">
@@ -142,9 +125,8 @@ const MyRides: React.FC<MyRidesProps> = ({ ride }) => {
         )}
       </div>
       <section className="h-20 flex justify-center items-center mt-6 mx-10">
-        <WagmiProvider config={config}>
-        <QueryClientProvider client={queryClient}>
-          <RainbowKitProvider>
+        <WagmiConfig config={wagmiConfig}>
+          <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
             <ConnectButton.Custom>
               {({ openConnectModal, connectModalOpen }) => {
                 const walletManager = {
@@ -183,8 +165,7 @@ const MyRides: React.FC<MyRidesProps> = ({ ride }) => {
               }}
             </ConnectButton.Custom>
           </RainbowKitProvider>
-          </QueryClientProvider>
-        </WagmiProvider>
+        </WagmiConfig>
       </section>
     </div>
   );
