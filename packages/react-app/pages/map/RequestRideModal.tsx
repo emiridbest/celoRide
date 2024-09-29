@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap'; // Assuming you're using bootstrap for 
 import { useRouter } from 'next/router';
 import { contractAddress, abi } from '@/utils/abi';
 import { BrowserProvider, Contract } from 'ethers';
+import { toast } from 'react-toastify';
 
 interface RequestRideModalProps {
     show: boolean;
