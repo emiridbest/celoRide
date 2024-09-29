@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+/* eslint-disable unhandledRejection TypeError */ 
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import { AppProps } from "next/app";
 import { celo } from "viem/chains";
@@ -6,8 +6,9 @@ import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { publicProvider } from "wagmi/providers/public";
 import { supportedNetworks } from "@superfluid-finance/widget";
+import Layout from "@/components/Layout";
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
-  supportedNetworks,
+  [celo],
   [publicProvider()]
 );
 
@@ -32,7 +33,7 @@ const appInfo = {
 function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
+      <RainbowKitProvider>
         <Layout>
           <Component {...pageProps} />
         </Layout>

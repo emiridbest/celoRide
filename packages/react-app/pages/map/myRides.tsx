@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Contract, BrowserProvider, ethers } from 'ethers';
 import { contractAddress, abi } from '@/utils/abi';
-import { WagmiConfig, configureChains } from "wagmi";
 import { toast } from 'react-toastify';
 import { Ride } from "./index";
 import productDetails from "./superfluid/productDetails";
@@ -13,8 +12,6 @@ import SuperfluidWidget from "@superfluid-finance/widget";
 import superTokenList from "@superfluid-finance/tokenlist";
 import { ConnectButton, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { celo } from 'viem/chains';
-import { wagmiConfig } from '../_app';
-import { publicProvider } from "wagmi/providers/public";
 interface MyRidesProps {
   ride: Ride;
 }
@@ -86,13 +83,7 @@ const MyRides: React.FC<MyRidesProps> = ({ ride }) => {
     }
   };
 
-  const appInfo = {
-    appName: "CeloRide",
-  };
-  const { chains, publicClient } = configureChains(
-    [celo],
-    [publicProvider()]
-  );
+
 
   return (
     <div className="flex justify-between items-center gap-2 py-4 px-6 rounded-lg shadow-md m-2 bg-black text-white">
@@ -125,8 +116,7 @@ const MyRides: React.FC<MyRidesProps> = ({ ride }) => {
         )}
       </div>
       <section className="h-20 flex justify-center items-center mt-6 mx-10">
-        <WagmiConfig config={wagmiConfig}>
-          <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
+          <RainbowKitProvider >
             <ConnectButton.Custom>
               {({ openConnectModal, connectModalOpen }) => {
                 const walletManager = {
@@ -165,7 +155,6 @@ const MyRides: React.FC<MyRidesProps> = ({ ride }) => {
               }}
             </ConnectButton.Custom>
           </RainbowKitProvider>
-        </WagmiConfig>
       </section>
     </div>
   );
