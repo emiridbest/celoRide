@@ -22,7 +22,7 @@
         "@mui/icons-material": "^6.1.1",
         "@mui/material": "^6.1.1",
         "@radix-ui/react-dialog": "^1.0.5",
-        "@rainbow-me/rainbowkit": "^2.0.7",
+        "@rainbow-me/rainbowkit": "^2.1.7",
         "@react-google-maps/api": "^2.19.3",
         "@superfluid-finance/tokenlist": "^5.0.0",
         "@superfluid-finance/widget": "^0.5.0",
@@ -65,7 +65,7 @@
         "use-sync-external-store": "1.2.0",
         "utils": "^0.3.1",
         "viem": "^2.10.5",
-        "wagmi": "2.5.12",
+        "wagmi": "^2.12.16",
         "wagmi": "^1.4.13",
         "web3-core": "^1.5.2"
     },

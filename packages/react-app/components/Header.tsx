@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useConnect } from "wagmi";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { InjectedConnector } from "wagmi/connectors/injected";
+import { injected } from "wagmi/connectors";
 
 export default function Header() {
     const [searchVisible, setSearchVisible] = useState(false); // State for search visibility
@@ -14,15 +14,12 @@ export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const { connect } = useConnect({
-        connector: new InjectedConnector(),
-    });
+    const { connect } = useConnect();
 
     useEffect(() => {
         if (window.ethereum && window.ethereum.isMiniPay) {
-            connect();
+            connect({ connector: injected({ target: "metaMask" }) });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const router = useRouter();
