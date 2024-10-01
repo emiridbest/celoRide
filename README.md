@@ -9,7 +9,15 @@ Contract Information
 
 Current frontend deployment contract address: 0x58bc7932bC31c5D0E3390F13E31F5897528D0385
 
+
 Smart contract verification https://alfajores.celoscan.io/address/0x90589d46Ced1b0FF0CF38cE3565fa056a91c9c74
+
+
+### NB: http://celoride.vercel.app/map on minipay/small screen devices
+
+We're currently in communication with the superfluid team to resolve errors associated with their stack.
+
+
 
 Features
 
@@ -108,7 +116,7 @@ Setting Up Foundry
 Running Locally
 
     Open your browser and navigate to http://localhost:3000.
-    Connect your wallet, book a ride, and experience real-time crypto payments as the ride progresses.
+    Browser automatically detects wallet(minipay or metamask), book a ride, and experience real-time crypto payments as the ride progresses.
 
 Contributions
 
