@@ -4,7 +4,9 @@ A decentralized ride-sharing application where payments are handled via Superflu
 Contract Information
 
     TAX Verified Contract Address: 0xE6A922613992b9118034b4832cDdb483e41AD353
-    CeloRide Contract Address: 0x58bc7932bC31c5D0E3390F13E31F5897528D0385
+    CeloRide Contract Address: 0x90589d46Ced1b0FF0CF38cE3565fa056a91c9c74
+
+Smart contract verification https://alfajores.celoscan.io/address/0x90589d46Ced1b0FF0CF38cE3565fa056a91c9c74
 
 Features
 
